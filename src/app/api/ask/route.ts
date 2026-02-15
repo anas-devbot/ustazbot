@@ -16,14 +16,14 @@ export async function POST(request: Request) {
 
   try {
     const answer = await askUstazBot(question);
-    const logMessage = `*UstazBot Log*
-Q: ${question}
-A: ${answer}`;
-    await sendTelegramLog(logMessage);
+    await sendTelegramLog({ question, answer });
     return NextResponse.json({ answer });
   } catch (error) {
     console.error("ask endpoint error", error);
-    await sendTelegramLog(`UstazBot Log (FAILED)\nQ: ${question}\nError: ${String(error)}`);
+    await sendTelegramLog({
+      question,
+      error: error instanceof Error ? error.message : String(error),
+    });
     return NextResponse.json({
       error: "Maaf, AI menghadapi isu buat masa ini. Sila cuba lagi atau rujuk ustaz bertauliah.",
     }, { status: 500 });
