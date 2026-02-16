@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "UstazBot AI bantuan persoalan agama",
+  title: "UstazBot AI Islamik",
   description:
     "UstazBot ialah AI bermazhab Shafie-ASWJ yang membantu menjawab persoalan agama secara ringkas dan tepat.",
 };
