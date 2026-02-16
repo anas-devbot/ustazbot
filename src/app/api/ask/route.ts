@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { askUstazBot } from "@/lib/ai";
-import { sendTelegramLog } from "@/lib/telegram";
+import { sendLogToMake } from "@/lib/webhook";
 
 export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
@@ -16,11 +16,11 @@ export async function POST(request: Request) {
 
   try {
     const answer = await askUstazBot(question);
-    await sendTelegramLog({ question, answer });
+    await sendLogToMake({ question, answer });
     return NextResponse.json({ answer });
   } catch (error) {
     console.error("ask endpoint error", error);
-    await sendTelegramLog({
+    await sendLogToMake({
       question,
       error: error instanceof Error ? error.message : String(error),
     });
